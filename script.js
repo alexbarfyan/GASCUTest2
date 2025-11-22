@@ -21,7 +21,7 @@ async function sendMessage() {
   input.focus();
 
   try {
-    const res = await fetch("https://YOUR-BACKEND-URL/chat", {
+    const res = await fetch("pmpt_69215e9582e081968dd5810b961e517f08893b154215bcb7", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message: text }),
