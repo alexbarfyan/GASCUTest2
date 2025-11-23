@@ -1,10 +1,21 @@
+/********************************************
+ *  👇 PUT YOUR BACKEND URL HERE (ONLY HERE)
+ *
+ *  Example after deploying backend:
+ *  const API_URL = "https://eric-backend.onrender.com/chat";
+ *
+ ********************************************/
+const API_URL = "YOUR_BACKEND_URL_HERE";  // <-- CHANGE THIS ONLY
+
+
+
+/*************** Chat UI logic below ***************/
+
 const chatLog = document.getElementById("chat-log");
 const input = document.getElementById("user-input");
 const sendBtn = document.getElementById("send-btn");
 
-// 🔑 This should be your backend URL – we'll fix this in section 2
-const API_URL = "https://YOUR-BACKEND-URL/chat";
-
+// Adds messages to the chat window
 function addMessage(text, sender) {
   const div = document.createElement("div");
   div.className = `message ${sender}`;
@@ -18,6 +29,7 @@ function addMessage(text, sender) {
   chatLog.scrollTop = chatLog.scrollHeight;
 }
 
+// Sends a message to the backend
 async function sendMessage() {
   const text = input.value.trim();
   if (!text) return;
@@ -34,6 +46,7 @@ async function sendMessage() {
     });
 
     const data = await res.json();
+
     if (data.reply) {
       addMessage(data.reply, "bot");
     } else {
