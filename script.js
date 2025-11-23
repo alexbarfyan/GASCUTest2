@@ -1,7 +1,7 @@
 /********************************************
  *  👇 PUT YOUR BACKEND URL HERE (ONLY HERE)
  ********************************************/
-const API_URL = "https://gascutest2-1.onrender.com/chat";  // <-- THIS IS CORRECT
+const API_URL = "https://gascutest2-1.onrender.com/chat";  // backend /chat endpoint
 
 
 
