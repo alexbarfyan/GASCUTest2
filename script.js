@@ -1,11 +1,11 @@
-/********************************************
+ /********************************************
  *  👇 PUT YOUR BACKEND URL HERE (ONLY HERE)
  *
  *  Example after deploying backend:
  *  const API_URL = "https://eric-backend.onrender.com/chat";
  *
  ********************************************/
-const API_URL = https://gascutest2.onrender.com;  // <-- CHANGE THIS ONLY
+const API_URL = "https://gascutest2-1.onrender.com";  // <-- CHANGE THIS ONLY
 
 
 
