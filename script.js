@@ -5,7 +5,7 @@
  *  const API_URL = "https://eric-backend.onrender.com/chat";
  *
  ********************************************/
-const API_URL = "https://gascutest2-1.onrender.com";  // <-- CHANGE THIS ONLY
+const API_URL = https://gascutest2-1.onrender.com;  // <-- CHANGE THIS ONLY
 
 
 
