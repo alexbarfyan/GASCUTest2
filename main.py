@@ -4,19 +4,18 @@ from pydantic import BaseModel
 from openai import OpenAI
 import os
 
-# ---------- OpenAI client ----------
-# Make sure OPENAI_API_KEY is set in Render → Environment
+# ---- OpenAI client (key must be set in Render env) ----
 client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
-# Your published prompt
+# Your published prompt ID
 PROMPT_ID = "pmpt_69215e9582e081968dd5810b961e517f08893b154215bcb7"
 
-# ---------- FastAPI app ----------
+# ---- FastAPI app ----
 app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # you can lock this to your github.io domain later
+    allow_origins=["*"],  # later you can restrict to your github.io origin
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -27,27 +26,28 @@ class ChatRequest(BaseModel):
 class ChatResponse(BaseModel):
     reply: str
 
+# Health-check route so / doesn’t 404
 @app.get("/")
-async def health_check():
+async def health():
     return {"status": "ok", "message": "Eric backend is running"}
 
+# Chat endpoint used by your front-end
 @app.post("/chat", response_model=ChatResponse)
 async def chat(req: ChatRequest):
     if not req.message:
         raise HTTPException(status_code=400, detail="Message is required")
 
     try:
-        # Use the Responses API with your prompt
+        # Call Responses API with your prompt
         response = client.responses.create(
             prompt={
                 "id": PROMPT_ID,
-                "version": "1"
+                "version": "1",
             },
             input=req.message,
         )
 
-        # Helper to get text; adjust if your client version differs
-        # For current SDKs, this usually works:
+        # New SDKs expose this helper:
         reply_text = response.output_text
 
         return ChatResponse(reply=reply_text)
