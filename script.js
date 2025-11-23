@@ -1,11 +1,7 @@
- /********************************************
+/********************************************
  *  👇 PUT YOUR BACKEND URL HERE (ONLY HERE)
- *
- *  Example after deploying backend:
- *  const API_URL = "https://eric-backend.onrender.com/chat";
- *
  ********************************************/
-const API_URL = "https://gascutest2-1.onrender.com/chat";  // <-- CHANGE THIS ONLY
+const API_URL = "https://gascutest2-1.onrender.com/chat";  // <-- THIS IS CORRECT
 
 
 
@@ -45,7 +41,14 @@ async function sendMessage() {
       body: JSON.stringify({ message: text }),
     });
 
-    const data = await res.json();
+    let data;
+    try {
+      data = await res.json();
+    } catch (e) {
+      console.error("Failed to parse JSON:", e);
+      addMessage("Sorry, server didn't return JSON.", "bot");
+      return;
+    }
 
     if (data.reply) {
       addMessage(data.reply, "bot");
@@ -53,7 +56,7 @@ async function sendMessage() {
       addMessage("Sorry, something went wrong on the server.", "bot");
     }
   } catch (err) {
-    console.error(err);
+    console.error("Network or CORS error:", err);
     addMessage("Error contacting server.", "bot");
   }
 }
